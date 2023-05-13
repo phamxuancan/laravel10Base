@@ -1,7 +1,6 @@
 FROM php:8.1-rc-fpm
 # Copy composer.lock and composer.json
 COPY composer.lock composer.json /var/www/
-ADD ./docker/entrypoint.sh /tmp/entrypoint.sh
 # Install dependencies
 RUN apt-get update && apt-get install -y git zip unzip 
 
@@ -29,4 +28,3 @@ USER www
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
-ENTRYPOINT ["/bin/bash", "/tmp/entrypoint.sh"]
