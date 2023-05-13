@@ -6,13 +6,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: canpx/php
-    container_name: app
+    image: service/php
     restart: unless-stopped
     tty: true
-    environment:
-      SERVICE_NAME: app
-      SERVICE_TAGS: dev
     working_dir: /var/www
     volumes:
       - ./:/var/www
@@ -23,7 +19,6 @@ services:
   #Nginx Service
   webserver:
     image: nginx:alpine
-    container_name: webserver
     restart: unless-stopped
     tty: true
     ports:
@@ -37,7 +32,7 @@ services:
   #MySQL Service
   phpmyadmin:
     image: phpmyadmin
-    restart: always
+    restart: unless-stopped
     ports:
       - 8080:80
     environment:
@@ -46,7 +41,6 @@ services:
       - app-network
   db:
     image: mysql:8.0
-    container_name: db
     restart: unless-stopped
     tty: true
     ports:
@@ -54,8 +48,6 @@ services:
     environment:
       MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
     volumes:
       - dbdata:/var/lib/mysql
     networks:
