@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: laravel_web
     ports:
-      - "8080:80"
+      - "8082:80"
     volumes:
       - .:/var/www/html
     depends_on:
