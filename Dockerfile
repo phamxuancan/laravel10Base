@@ -22,6 +22,8 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Cấu hình nginx
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+RUN rm /etc/nginx/sites-enabled/default
+
 
 # Sao chép mã nguồn
 COPY . /var/www/html
